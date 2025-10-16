@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import { requestLocalApi } from "@libs/localApi";
+
+const useLocalDatabase = import.meta.env.VITE_USE_LOCAL_DB === "true";
 
 const DEFAULT_HEADERS = {
   accept: "application/json",
-  Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+  ...(import.meta.env.VITE_API_TOKEN
+    ? { Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}` }
+    : {}),
 };
 
 export default function useFetch(
@@ -15,23 +20,32 @@ export default function useFetch(
   useEffect(() => {
     if (enabled) {
       setIsLoading(true);
-      fetch(`${import.meta.env.VITE_API_HOST}${url}`, {
-        method,
-        headers: {
-          ...DEFAULT_HEADERS,
-          ...headers,
-        },
-      })
-        .then(async (res) => {
-          const data = await res.json();
+      const fetchData = async () => {
+        try {
+          if (useLocalDatabase) {
+            const data = await Promise.resolve(requestLocalApi(url));
+            setData(data);
+            return;
+          }
+
+          const response = await fetch(`${import.meta.env.VITE_API_HOST}${url}`, {
+            method,
+            headers: {
+              ...DEFAULT_HEADERS,
+              ...headers,
+            },
+          });
+
+          const data = await response.json();
           setData(data);
-        })
-        .catch((err) => {
+        } catch (err) {
           console.error(err);
-        })
-        .finally(() => {
+        } finally {
           setIsLoading(false);
-        });
+        }
+      };
+
+      fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, method, JSON.stringify(headers), enabled]);
