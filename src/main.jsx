@@ -8,11 +8,14 @@ import { lazy } from "react";
 import SearchPage from "@pages/SearchPage";
 import LoginPage from "@pages/LoginPage";
 import RegisterPage from "@pages/RegisterPage";
+import { requestLocalApi } from "@libs/localApi";
 
 const MovieDetail = lazy(() => import("@pages/MovieDetail"));
 const TVShowDetail = lazy(() => import("@pages/TVShowDetail"));
 const HomePage = lazy(() => import("@pages/HomePage"));
 const PeoplePage = lazy(() => import("@pages/PeoplePage"));
+
+const useLocalDatabase = import.meta.env.VITE_USE_LOCAL_DB === "true";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,12 @@ const router = createBrowserRouter([
         path: "/people/:id",
         element: <PeoplePage />,
         loader: async ({ params }) => {
+          if (useLocalDatabase) {
+            return requestLocalApi(
+              `/person/${params.id}?append_to_response=combined_credits`,
+            );
+          }
+
           const res = await fetch(
             `https://api.themoviedb.org/3/person/${params.id}?append_to_response=combined_credits`,
             {
@@ -51,7 +60,7 @@ const router = createBrowserRouter([
               },
             },
           );
-          return res;
+          return res.json();
         },
       },
       {
