@@ -2,10 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const ModalContext = createContext();
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useModalContext = () => {
   return useContext(ModalContext);
-}
+};
 
 const ModalProvider = ({ children }) => {
   const [isShowing, setIsShowing] = useState(false);
