@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="flex h-14 items-center justify-between bg-slate-950 px-8 text-white lg:h-20">
       <div className="flex items-center gap-4 lg:gap-6">
-        <Link to="/">
+        <Link to="/home">
           <img src="/netflix.png" className="w-16 sm:w-28" />
         </Link>
         <Link to="/search?mediaType=movie" className="lg:text-xl">
@@ -34,7 +34,7 @@ const Header = () => {
             </button>
           </>
         ) : (
-          <Link to="/login" className="rounded bg-red-600 px-4 py-2">
+          <Link to="/" className="rounded bg-red-600 px-4 py-2">
             Login
           </Link>
         )}

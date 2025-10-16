@@ -15,10 +15,14 @@ const PeoplePage = lazy(() => import("@pages/PeoplePage"));
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <LoginPage />,
+  },
+  {
     element: <RootLayout />,
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <HomePage />,
       },
       {
@@ -50,10 +54,6 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
   },
 ]);
 

@@ -12,7 +12,7 @@ const LoginPage = () => {
     e.preventDefault();
     // Trong ứng dụng thực tế, bạn sẽ xác thực thông tin đăng nhập ở đây
     login(username);
-    navigate("/");
+    navigate("/home");
   };
 
   return (

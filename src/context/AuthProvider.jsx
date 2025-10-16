@@ -22,6 +22,8 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     setUser(null);
     setIsAuthenticated(false);
+    // Redirect to login page
+    window.location.href = "/";
   };
 
   return (

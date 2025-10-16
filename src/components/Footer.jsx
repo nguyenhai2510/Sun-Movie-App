@@ -70,7 +70,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  to="/"
+                  to="/home"
                   className="text-sm text-gray-300 transition-colors duration-300 hover:text-red-500"
                 >
                   Trang chủ
