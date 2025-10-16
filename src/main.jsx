@@ -7,6 +7,7 @@ import AuthProvider from "@context/AuthProvider";
 import { lazy } from "react";
 import SearchPage from "@pages/SearchPage";
 import LoginPage from "@pages/LoginPage";
+import RegisterPage from "@pages/RegisterPage";
 
 const MovieDetail = lazy(() => import("@pages/MovieDetail"));
 const TVShowDetail = lazy(() => import("@pages/TVShowDetail"));
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
   {
     element: <RootLayout />,
