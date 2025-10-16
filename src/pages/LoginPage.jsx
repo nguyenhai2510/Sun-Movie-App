@@ -52,7 +52,7 @@ const LoginPage = () => {
 
     setIsLoading(true);
 
-    // Simulate API call delay
+
     setTimeout(() => {
       const result = login(formData.username, formData.password);
 
